@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./assets/stylesheets/bootstrap_style.css"> 
+        <script src= "./assets/javascripts/angular.js"></script> 
+        <script src="./modules/dasboard.js"></script>
+    </head>
+    <body ng-app="postApp" ng-controller="postController">
+        <div class="container">
+            <div class="col-sm-10">
+                <div class="page-header"><h1>Accounting angularJS{{message}}</h1></div>
+                <!-- Table -->
+                <form name="userProduct" ng-submit="submitPrduct()">
+                    <div class="table-responsive">          
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <a href ng-click="newItem($event)">New Item</a>
+                            <tr ng-repeat="product in products">
+                                <td><div class="form-group">
+                                        <select name="list_name" class="form-control" ng-model="product.items" required>
+                                            <option ng-repeat="list in lists">{{list.item}}</option>                                          
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><input type="text" class="form-control" ng-model="product.quantity" required></td>
+                                <td><input type="text" class="form-control" ng-model="product.price" required></td>
+                                <td><b>{{product.total = product.quantity * product.price}}</b></td>
+                                <td><button ng-click="products.splice($index, 1)">Remove</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <!-- FORM -->
+                <br><br>
+                <div class="table-responsive"> 
+                    <table class="table">
+                        <thead>
+                        <td>Sl.No</td>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                        <th>Operation</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="allProduct in allProducts">
+                                <td>{{$index + 1}}</td>
+                                <td>{{allProduct.items}}</td>
+                                <td>{{allProduct.price}}</td>
+                                <td>{{allProduct.quantity}}</td>
+                                <td>{{allProduct.total}}</td>
+                                <td>{{allProduct.Date}}</td>
+                                <td><button ng-click="editProduct(allProduct)">Edit</button></td>
+                                <td><button ng-click="delProduct(allProduct)">delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>                   
+                </div>
+
+                <form name="ediForm" ng-submit="editForm()">
+                    <div class="form-group">
+                        <label>Product Name</label>                        
+                        <select class="form-control" ng-model="eproduct.items" required>
+                            <option ng-repeat="list in lists">{{list.item}}</option>                                          
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="text" name="username" class="form-control" ng-model="eproduct.price" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="text" name="email" class="form-control" ng-model="eproduct.quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Total</label>
+                        <span>{{eproduct.total=eproduct.price*eproduct.quantity}}</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
